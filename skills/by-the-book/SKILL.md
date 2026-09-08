@@ -1,0 +1,74 @@
+---
+name: by-the-book
+description: Use when the user asks to take a change from issue to pull request with approval gates.
+disable-model-invocation: true
+---
+
+# By the Book
+
+One change, one fixed path, a gate before every artifact. Companions are used when the skill list shows them and every step below is complete without them: laconic, superpowers:test-driven-development, superpowers:using-git-worktrees. Never call a skill that is not listed.
+
+`$ARGUMENTS` is the change, in the user's words, plus any of these flags:
+
+| Flag | Effect | Default |
+|---|---|---|
+| `--worktree` | Work in an isolated worktree | plain branch |
+| `--branch=kind` | Name the branch `feat/<slug>` or `fix/<slug>` | `issue-<N>-<slug>` |
+| `--no-body` | Commit messages are subject only | subject and body |
+
+## Order
+
+```
+research -> (draft issue -> gate)+ -> create issue -> branch -> prior art
+  -> ( (failing test -> passing code -> tests and format)+ -> present -> gate -> commit )+
+  -> (draft PR -> gate)+ -> open PR
+```
+
+A gate is one AskUserQuestion holding the full draft, with the options Approve and Change. On Change, redraft from the note and gate again. Nothing is created, committed, or opened before its gate returns Approve. Bodies reach `gh` through `--body-file -` on stdin, never a file in the repo. A `create` runs once, after its gate, never as a probe.
+
+## Steps
+
+**1. Research.** Read the code the change touches and its tests, `gh issue list` for overlap, `git log --oneline -20 -- <paths>` for history. This is knowledge for the drafts, not a message.
+
+**2. Issue.** Draft subject and body, then gate. The body keeps up to three parts apart, and a part with nothing in it is absent:
+
+1. The problem or the missing feature: what happens today, as fact, and what is needed. No fix here. For a bug, the evidence: a permalink to the lines at fault (`gh browse -n <path>:<line>`), the triggering input, and the output against what was expected, in a code block when the values need one.
+2. Possible fixes, when there are any, as a paragraph or a short list. A reader must be able to accept the problem and reject every fix.
+3. Questions to the maintainers, when there are any: how they want it done, whether it is wanted, what else to address. Written to a person, with what was looked into where that helps them answer.
+
+Done criteria go in as a short list only when the outcome is not obvious from the problem. On Approve, `gh issue create` and keep the number.
+
+**3. Branch.** From the default branch: `git switch -c issue-<N>-<slug>` or the `--branch=kind` form. With `--worktree`: `git worktree add ../<repo>-issue-<N> -b issue-<N>-<slug>` and work there.
+
+**4. Prior art.** How this has been solved before: a sibling in the repo, the library's docs, one or two known implementations. Three sources at most. This shapes the tests and is reported only if it changed the design.
+
+**5. Commit loop.** One commit per coherent change:
+
+1. Write one failing test. Run it. Confirm it fails for the intended reason.
+2. Write the least code that passes it. Run the suite.
+3. Run the repo's formatter if one is configured. Add none.
+4. Repeat until the commit's behavior is covered.
+5. Present: an opening line saying what the commit does, a table of files and what changed, the test command and its last line, and the draft message. Gate.
+6. On Approve, commit with that message exactly.
+
+The test and the code are never written in the same tool call. A test that passes on its first run is deleted and rewritten to fail. A code comment may say why one approach over another when that is not obvious. A docstring says what the thing does now and never what was rejected, removed, or not done, unless the item is deliberately obsolete and marked so.
+
+Message: imperative subject, 50 characters or fewer, in the repo's convention from `git log`. Body unless `--no-body`: why, and what it rejects, wrapped at 72, referencing `#<N>`. No trailers, no sign-offs.
+
+**6. Pull request.** Draft subject and body, then gate. The body is `Closes #<N>.` on the first line, then one or two sentences saying what was done with no heading, then how and why as plain paragraphs (`## How` and `## Why` only when each runs past a paragraph), the one opinionated decision under why, then the test command and what the new tests cover.
+
+**7. Report.** The end-of-turn message opens with the PR link and what shipped, then a table of commits, the state, and one Next line.
+
+## Scope
+
+The diff holds only what the issue needs. No `.gitignore`, formatter config, README touch-ups, or drive-by refactors unless the issue says so. Anything else worth fixing becomes a second issue draft at the end, unfiled.
+
+## Stop and redo
+
+- Test and code in one tool call, or the suite run once at the end
+- A branch before the issue number exists
+- A `gh ... create` with a placeholder body, or a body file left in the tree
+- A docstring that says what the code used to do or what was decided against
+- A PR body that does not start with `Closes #N.`, or whose summary carries a heading
+- A file in the diff the issue never mentioned
+- A trailer, footer, or emoji in a commit message

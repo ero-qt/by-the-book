@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace-manifest.json",
+  "name": "by-the-book",
+  "owner": { "name": "ero-qt", "url": "https://github.com/ero-qt" },
+  "description": "Install By the Book as a Claude plugin.",
+  "plugins": [
+    {
+      "name": "by-the-book",
+      "source": "./",
+      "description": "Issue to pull request on one fixed path, with a gate before every artifact.",
+      "license": "MIT",
+      "keywords": ["workflow", "git", "github", "issue", "pull-request", "tdd", "review"]
+    }
+  ]
+}
