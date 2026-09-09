@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # By the Book
 
-One change, one fixed path, a gate before every artifact. Companions are used when the skill list shows them and every step below is complete without them: laconic, superpowers:test-driven-development, superpowers:using-git-worktrees. Never call a skill that is not listed.
+One change, one fixed path, a gate before every artifact. Companions are used when the skill list shows them and every step below is complete without them: laconic, superpowers:test-driven-development, superpowers:using-git-worktrees, superpowers:requesting-code-review. Never call a skill that is not listed.
 
 `$ARGUMENTS` is the change, in the user's words, plus any of these flags:
 
@@ -15,13 +15,14 @@ One change, one fixed path, a gate before every artifact. Companions are used wh
 | `--worktree` | Work in an isolated worktree | plain branch |
 | `--branch=kind` | Name the branch `feat/<slug>` or `fix/<slug>` | `issue-<N>-<slug>` |
 | `--no-body` | Commit messages are subject only | subject and body |
+| `--review` / `--review=each` / `--no-review` | Run the review before the PR / after every commit too / never | ask once |
 
 ## Order
 
 ```
 research -> (draft issue -> gate)+ -> create issue -> branch -> prior art
   -> ( (failing test -> passing code -> tests and format)+ -> present -> gate -> commit )+
-  -> (draft PR -> gate)+ -> open PR
+  -> review? -> (findings -> commit loop)* -> (draft PR -> gate)+ -> open PR
 ```
 
 A gate is one AskUserQuestion holding the full draft, with the options Approve and Change. On Change, redraft from the note and gate again. Nothing is created, committed, or opened before its gate returns Approve. Bodies reach `gh` through `--body-file -` on stdin, never a file in the repo. A `create` runs once, after its gate, never as a probe.
@@ -55,9 +56,19 @@ The test and the code are never written in the same tool call. A test that passe
 
 Message: imperative subject, 50 characters or fewer, in the repo's convention from `git log`. Body unless `--no-body`: why, and what it rejects, wrapped at 72, referencing `#<N>`. No trailers, no sign-offs.
 
-**6. Pull request.** Draft subject and body, then gate. The body is `Closes #<N>.` on the first line, then one or two sentences saying what was done with no heading, then how and why as plain paragraphs (`## How` and `## Why` only when each runs past a paragraph), the one opinionated decision under why, then the test command and what the new tests cover.
+**6. Review.** After the last commit, ask once: "Run an adversarial review before the PR?" Yes / No. The flags answer it. The reviewer is one read-only Agent with the issue text, the diff against the base, and the test command. It may run tests and read anything; it edits nothing. It looks for:
 
-**7. Report.** The end-of-turn message opens with the PR link and what shipped, then a table of commits, the state, and one Next line.
+- each done criterion without a test that proves it
+- bugs in the diff, with a reproducing input
+- untested edges: empty, None, zero, negative, huge, unicode, boundaries, and combinations chosen to corrupt state, with proof each is handled or a demonstration it is not
+- formatting and line length against the repo's config
+- tells in comments, docstrings, messages, and drafts
+
+It returns a verdict line ("Ship" or "N findings block") and a table of severity, location, finding, and the input that shows it. Blocking findings go back through the commit loop, test first. Prose findings are fixed in the drafts.
+
+**7. Pull request.** Draft subject and body, then gate. The body is `Closes #<N>.` on the first line, then one or two sentences saying what was done with no heading, then how and why as plain paragraphs (`## How` and `## Why` only when each runs past a paragraph), the one opinionated decision under why, then the test command and what the new tests cover.
+
+**8. Report.** The end-of-turn message opens with the PR link and what shipped, then a table of commits, the state, and one Next line.
 
 ## Scope
 
