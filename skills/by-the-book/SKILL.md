@@ -27,11 +27,19 @@ research -> (draft issue -> gate)+ -> create issue -> branch -> prior art
 
 A gate is one AskUserQuestion holding the full draft, with the options Approve and Change. On Change, redraft from the note and gate again. Nothing is created, committed, or opened before its gate returns Approve. Bodies reach `gh` through `--body-file -` on stdin, never a file in the repo. A `create` runs once, after its gate, never as a probe.
 
+## Voice
+
+Everything a human will read is written as the user would write it. The default is factual and impersonal: "Added", "Fixed", "Today X returns Y." First person is allowed in two places and nowhere else, and neither is required: an opinionated decision ("I chose to return an empty slug because") and a question to the maintainers, which reads like one person talking to another ("Should this be done at all? I looked into it and the URL layer already truncates."). A body with no decision to defend and no open question has no "I", and that is the common case.
+
+Markdown stays light. `##` is the largest heading, `###` is rare and only inside an `##`, a body under 150 words has no headings, and bold is never a heading. Paragraphs stay short. A list may follow a sentence and a colon when the items are parallel, numbered when order matters, and a comma run long enough that a reader loses their place becomes one. A wall of headings and bullets reads as generated, and so does a wall of prose where a list was the natural shape.
+
+When the repo ships a template (`.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md`, `CONTRIBUTING.md`), its sections and order win. Fill it, do not restate it.
+
 ## Steps
 
-**1. Research.** Read the code the change touches and its tests, `gh issue list` for overlap, `git log --oneline -20 -- <paths>` for history. This is knowledge for the drafts, not a message.
+**1. Research.** Read the code the change touches and its tests, `gh issue list` for overlap, `git log --oneline -20 -- <paths>` for history, and the template locations above. This is knowledge for the drafts, not a message.
 
-**2. Issue.** Draft subject and body, then gate. The body keeps up to three parts apart, and a part with nothing in it is absent:
+**2. Issue.** Draft subject and body, then gate. Without a template the body keeps up to three parts apart, and a part with nothing in it is absent:
 
 1. The problem or the missing feature: what happens today, as fact, and what is needed. No fix here. For a bug, the evidence: a permalink to the lines at fault (`gh browse -n <path>:<line>`), the triggering input, and the output against what was expected, in a code block when the values need one.
 2. Possible fixes, when there are any, as a paragraph or a short list. A reader must be able to accept the problem and reject every fix.
@@ -66,7 +74,7 @@ Message: imperative subject, 50 characters or fewer, in the repo's convention fr
 
 It returns a verdict line ("Ship" or "N findings block") and a table of severity, location, finding, and the input that shows it. Blocking findings go back through the commit loop, test first. Prose findings are fixed in the drafts.
 
-**7. Pull request.** Draft subject and body, then gate. The body is `Closes #<N>.` on the first line, then one or two sentences saying what was done with no heading, then how and why as plain paragraphs (`## How` and `## Why` only when each runs past a paragraph), the one opinionated decision under why, then the test command and what the new tests cover.
+**7. Pull request.** Draft subject and body, then gate. Without a template the body is `Closes #<N>.` on the first line, then one or two sentences saying what was done with no heading, then how and why as plain paragraphs (`## How` and `## Why` only when each runs past a paragraph), the one opinionated decision under why, then the test command and what the new tests cover.
 
 **8. Report.** The end-of-turn message opens with the PR link and what shipped, then a table of commits, the state, and one Next line.
 
@@ -79,7 +87,10 @@ The diff holds only what the issue needs. No `.gitignore`, formatter config, REA
 - Test and code in one tool call, or the suite run once at the end
 - A branch before the issue number exists
 - A `gh ... create` with a placeholder body, or a body file left in the tree
+- A fix in the same paragraph as the problem
+- An "I" or a question added because the shape had a slot for one
 - A docstring that says what the code used to do or what was decided against
 - A PR body that does not start with `Closes #N.`, or whose summary carries a heading
+- A draft that ignores a template the repo ships
 - A file in the diff the issue never mentioned
 - A trailer, footer, or emoji in a commit message
