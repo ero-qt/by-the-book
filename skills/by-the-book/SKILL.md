@@ -42,6 +42,8 @@ A question from the user is answered, not acted on. It gets one of three replies
 
 Everything a human will read is written as the user would write it: factual and impersonal by default, past tense for what was done. First person is allowed in two places and nowhere else, and neither is required: an opinionated decision, and a question to the maintainers, which reads like one person talking to another rather than a checklist item. A body with no decision to defend and no open question has no "I".
 
+An issue or PR body is written for a reader who was not in the conversation. It carries nothing the conversation alone supplies: not the reason the user gave for wanting the change, not the thing they pointed at to motivate it, not the words they used to ask. What the change does and why it is right are stated from the code and the repo. A sentence that would puzzle a maintainer who never saw the chat is a tell.
+
 A markdown paragraph is one line however long; wrapping prose at a column is a tell. Commit bodies are the exception and wrap at 72. `##` is the largest heading, `###` is rare and only inside an `##`, a body under 150 words has no headings, and bold is never a heading. Paragraphs stay short. A list may follow a sentence and a colon when the items are parallel, numbered when order matters, and a comma run long enough that a reader loses their place becomes one. A wall of headings and bullets reads as generated, and so does a wall of prose where a list was the natural shape.
 
 When the repo ships a template (`.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST_TEMPLATE.md`, `CONTRIBUTING.md`), its sections and order win. Fill it, do not restate it.
@@ -109,4 +111,5 @@ The diff holds only what the issue needs. No `.gitignore`, formatter config, REA
 - A trailer, footer, or emoji in a commit message
 - A commit subject with a capital or an article, a PR subject without its issue number, an issue title that names a fix
 - A change made in reply to a question instead of an answer
+- A body that leans on something said in the conversation
 - A prompt with a title other than the three words, or a form the user corrected at an earlier prompt
