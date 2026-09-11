@@ -3,14 +3,14 @@
 One change, one fixed path, a gate before every artifact.
 
 ```
-research -> (draft issue -> gate)+ -> create issue -> branch -> prior art
-  -> ( (failing test -> passing code -> tests and format)+ -> present -> gate -> commit )+
-  -> review? -> (findings -> commit loop)* -> (draft PR -> gate)+ -> open PR
+read back -> Start? -> research -> (draft issue -> Approve?)+ -> create issue -> branch
+  -> prior art -> plan -> Go? -> ( (failing test -> passing code -> tests and format)+ -> present -> Approve? -> commit )+
+  -> Review? -> (findings -> commit loop)* -> (draft PR -> Approve?)+ -> open PR
 ```
 
-You describe the change. The skill researches the code, drafts an issue and waits for your approval, files it, branches from the issue number, looks at prior art, and then works in a test-first loop where every commit is presented and approved before it lands. Before the pull request it offers an adversarial review by a read-only agent that looks for untested edges, inputs chosen to corrupt state, formatting drift, and AI tells in the prose. The pull request is drafted, approved, and opened.
+You describe the change and confirm the read-back with Start?. The skill researches the code, drafts an issue and waits for your approval, files it, branches from the issue number, looks at prior art, and then works in a test-first loop where every commit is presented and approved before it lands. Before the pull request it offers an adversarial review by a read-only agent that looks for untested edges, inputs chosen to corrupt state, formatting drift, and AI tells in the prose. The pull request is drafted, approved, and opened.
 
-Nothing is created, committed, or opened before you say so, and every issue, commit message, and pull request body is written the way you would write it.
+Every question it asks is one of four words, always the same word at the same moment: Start? before research, Approve? before anything is created, Go? before the first test is written, and Review? after the last commit. Nothing is created, committed, or opened before you say so, and every issue, commit message, and pull request body is written the way you would write it.
 
 ## Usage
 
