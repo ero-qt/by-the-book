@@ -21,18 +21,17 @@ One change, one fixed path, a gate before every artifact. Companions are used wh
 ## Order
 
 ```
-read back -> Start? -> research -> (draft issue -> Approve?)+ -> create issue -> branch
+read back -> Go? -> research -> (draft issue -> Approve?)+ -> create issue -> branch
   -> prior art -> plan -> Go? -> ( (failing test -> passing code -> tests and format)+ -> present -> Approve? -> commit )+
   -> Review? -> (findings -> commit loop)* -> (draft PR -> Approve?)+ -> open PR
 ```
 
-Every question to the user is one AskUserQuestion whose title is one of four words, always the same word for the same moment, so the user learns four prompts and two answers:
+Every question to the user is one AskUserQuestion whose title is one of three words, always the same word for the same moment, so the user learns three prompts and two answers:
 
 | Prompt | Moment | Answers |
 |---|---|---|
-| `Start?` | after the request and flags are read back, before research | Start / Change |
 | `Approve?` | a gate, holding the full draft of the issue, commit, or PR | Approve / Change |
-| `Go?` | after prior art, holding the plan | Go / Change |
+| `Go?` | after the read-back of the request and flags, before research; and after prior art, holding the plan | Go / Change |
 | `Review?` | after the last commit | Yes / No |
 
 On Change, redraft from the note and ask again. Nothing is created, committed, or opened before its `Approve?` returns Approve. A correction at any prompt is a convention from then on: every later draft of that kind (subject casing, branch name, body layout, wording) follows it without being asked, and it is worth a memory note when the harness keeps one. Bodies reach `gh` through `--body-file -` on stdin, never a file in the repo. A `create` runs once, after its gate, never as a probe.
@@ -47,7 +46,7 @@ When the repo ships a template (`.github/ISSUE_TEMPLATE/`, `.github/PULL_REQUEST
 
 ## Steps
 
-**0. Read back.** One line with the change as understood and the flags in effect. `Start?`
+**0. Read back.** One line with the change as understood and the flags in effect. `Go?`
 
 **1. Research.** Read the code the change touches and its tests, `gh issue list` for overlap, `git log --oneline -20 -- <paths>` for history, and the template locations above. This is knowledge for the drafts, not a message.
 
@@ -107,4 +106,4 @@ The diff holds only what the issue needs. No `.gitignore`, formatter config, REA
 - A file in the diff the issue never mentioned
 - A trailer, footer, or emoji in a commit message
 - A commit subject with a capital or an article, a PR subject without its issue number, an issue title that names a fix
-- A prompt with a title other than the four words, or a form the user corrected at an earlier prompt
+- A prompt with a title other than the three words, or a form the user corrected at an earlier prompt
