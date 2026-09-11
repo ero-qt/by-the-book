@@ -36,6 +36,8 @@ Every question to the user is one AskUserQuestion whose title is one of three wo
 
 On Change, redraft from the note and ask again. Nothing is created, committed, or opened before its `Approve?` returns Approve. A correction at any prompt is a convention from then on: every later draft of that kind (subject casing, branch name, body layout, wording) follows it without being asked, and it is worth a memory note when the harness keeps one. Bodies reach `gh` through `--body-file -` on stdin, never a file in the repo. A `create` runs once, after its gate, never as a probe.
 
+A question from the user is answered, not acted on. "Why is this in the same commit as the rest?" gets one of three replies: the reason, when it holds; the reason and a softer alternative, when prior art or the user's likely preference points another way; or a plain concession that the step overreached, broke something, or put something in the wrong place. Nothing changes until the user says Change or Approve. The tone of the question changes none of this. The same three replies apply whether it is calm or in capitals, and "you're right to be frustrated" or "you're right to push back" is never one of them.
+
 ## Voice
 
 Everything a human will read is written as the user would write it. The default is factual and impersonal: "Added", "Fixed", "Today X returns Y." First person is allowed in two places and nowhere else, and neither is required: an opinionated decision ("I chose to return an empty slug because") and a question to the maintainers, which reads like one person talking to another ("Should this be done at all? I looked into it and the URL layer already truncates."). A body with no decision to defend and no open question has no "I", and that is the common case.
@@ -106,4 +108,5 @@ The diff holds only what the issue needs. No `.gitignore`, formatter config, REA
 - A file in the diff the issue never mentioned
 - A trailer, footer, or emoji in a commit message
 - A commit subject with a capital or an article, a PR subject without its issue number, an issue title that names a fix
+- A change made in reply to a question instead of an answer
 - A prompt with a title other than the three words, or a form the user corrected at an earlier prompt
