@@ -10,7 +10,7 @@ read back -> Go? -> research -> (draft issue -> Approve?)+ -> create issue -> br
 
 You describe the change and confirm the read-back with Go?. The skill researches the code, drafts an issue and waits for your approval, files it, branches from the issue number, looks at prior art, and then works in a test-first loop where every commit is presented and approved before it lands. Before the pull request it offers an adversarial review by a read-only agent that looks for untested edges, inputs chosen to corrupt state, formatting drift, and AI tells in the prose. The pull request is drafted, approved, and opened.
 
-Every question it asks is one of three words, always the same word at the same moment: Go? before research and again before the first test is written, Approve? before anything is created, and Review? after the last commit. Nothing is created, committed, or opened before you say so, and every issue, commit message, and pull request body is written the way you would write it.
+Every question it asks is one of three words, always the same word at the same moment: Go? before research and again before the first test is written, Approve? before anything is created, and Review? after the last commit. What a question gates goes in chat first, and the question holds nothing but the word and its two answers. Nothing is created, committed, or opened before you say so, and every issue, commit message, and pull request body is written the way you would write it.
 
 ## Usage
 
