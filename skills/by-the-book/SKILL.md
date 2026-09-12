@@ -32,7 +32,7 @@ Every question to the user is one AskUserQuestion whose title is one of three wo
 |---|---|---|
 | `Go?` | after the read-back, before research; and after prior art, once the plan is in chat | Go / Change |
 | `Approve?` | a gate, once the full draft of the issue, commit, or PR is in chat | Approve / Change |
-| `Review?` | after the last commit | Yes / No |
+| `Review?` | after the last commit, once the reviewer's model and effort are in chat | Yes / No |
 
 Whatever the prompt gates goes in chat first, as its own message, with the prompt following in the same turn: the read-back, the plan, the draft, the file table, the test line. The prompt holds its word and its two answers and nothing else; where the tool wants a description on an answer, it is 2 or 3 words, never a reason. On Change, redraft from the note and ask again. Nothing is created, committed, or opened before its `Approve?` returns Approve. A correction at any prompt is a convention from then on: every later draft of that kind follows it unasked, and it is worth a memory note when the harness keeps one. Bodies reach `gh` through `--body-file -` on stdin, never a file in the repo. A `create` runs once, after its gate, never as a probe.
 
@@ -79,7 +79,7 @@ The test and the code are never written in the same tool call. A test that passe
 
 Message: imperative subject, lowercase, no articles, 50 characters or fewer. The subject says what the commit does to the repo, never what the code now does. When `git log` shows the repo does it another way, the repo wins. Body unless `--no-body`: why, and what it rejects, wrapped at 72, referencing `#<N>`. No trailers, no sign-offs.
 
-**6. Review.** After the last commit, `Review?`. The flags answer it. The reviewer is one read-only Agent with the issue text, the diff against the base, and the test command. It may run tests and read anything; it edits nothing. It looks for:
+**6. Review.** After the last commit, one line in chat naming the model and effort the reviewer will run at, then `Review?`. The flags answer it. The reviewer is one read-only Agent at that model and effort, with the issue text, the diff against the base, and the test command. It may run tests and read anything; it edits nothing. It looks for:
 
 - each done criterion without a test that proves it
 - bugs in the diff, with a reproducing input
