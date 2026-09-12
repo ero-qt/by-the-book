@@ -77,7 +77,7 @@ Done criteria go in as a short list only when the outcome is not obvious from th
 
 The test and the code are never written in the same tool call. A test that passes on its first run is deleted and rewritten to fail. A code comment may say why one approach over another when that is not obvious. A docstring says what the thing does now and never what was rejected, removed, or not done, unless the item is deliberately obsolete and marked so.
 
-Message: imperative subject, lowercase, no articles, 50 characters or fewer. When `git log` shows the repo does it another way, the repo wins. Body unless `--no-body`: why, and what it rejects, wrapped at 72, referencing `#<N>`. No trailers, no sign-offs.
+Message: imperative subject, lowercase, no articles, 50 characters or fewer, saying what the commit does to the repo and never what the code now does. When `git log` shows the repo does it another way, the repo wins. Body unless `--no-body`: why, and what it rejects, wrapped at 72, referencing `#<N>`. No trailers, no sign-offs.
 
 **6. Review.** After the last commit, `Review?`. The flags answer it. The reviewer is one read-only Agent with the issue text, the diff against the base, and the test command. It may run tests and read anything; it edits nothing. It looks for:
 
@@ -109,7 +109,7 @@ The diff holds only what the issue needs. No `.gitignore`, formatter config, REA
 - A draft that ignores a template the repo ships
 - A file in the diff the issue never mentioned
 - A trailer, footer, or emoji in a commit message
-- A commit subject with a capital or an article, a PR subject without its issue number, an issue title that names a fix
+- A commit subject with a capital or an article, a commit subject that says what the code does instead of what the commit does, a PR subject without its issue number, an issue title that names a fix
 - A change made in reply to a question instead of an answer
 - A body that leans on something said in the conversation
 - A prompt with a title other than the three words, a draft or a reason inside it, or a form the user corrected at an earlier prompt

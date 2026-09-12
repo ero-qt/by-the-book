@@ -32,7 +32,7 @@ Flags go anywhere in the argument:
 
 An issue title states the problem, never the fix. The body keeps the problem, any possible fixes, and any questions to the maintainers in separate parts, and a part with nothing in it is absent. Questions read like one person talking to another.
 
-A commit subject is imperative, lowercase, and free of articles, unless the repository's history shows another convention. The body says why and what it rejects.
+A commit subject is imperative, lowercase, and free of articles, and says what the commit does to the repository rather than what the code now does, unless the repository's history shows another convention. The body says why and what it rejects.
 
 A pull request subject is imperative in sentence case with the issue number at the end. The body opens with `Closes #N.`, then one or two sentences saying what was done, then how and why in plain paragraphs, then how it was tested. A footer with `Depends on` and `Stacked:` appears only when it applies.
 
