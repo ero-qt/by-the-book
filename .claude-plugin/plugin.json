@@ -1,7 +1,7 @@
 {
   "name": "by-the-book",
   "description": "Issue to pull request on one fixed path, with a gate before every artifact.",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "author": { "name": "ero-qt", "url": "https://github.com/ero-qt" },
   "homepage": "https://github.com/ero-qt/by-the-book",
   "repository": "https://github.com/ero-qt/by-the-book",
