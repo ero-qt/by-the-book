@@ -26,7 +26,7 @@ read back -> Go? -> research -> (draft issue -> Approve?)+ -> create issue -> br
   -> Review? -> (findings -> commit loop)* -> (draft PR -> Approve?)+ -> open PR
 ```
 
-Every question to the user is one AskUserQuestion whose title is one of three words, the same word at the same moment:
+Every question to the user is one of three words, the same word at the same moment, written as the last line of the turn. The question tool is not used: it hides what sits above it, and a dismissed prompt leaves the step with no answer. The user's next message is the answer:
 
 | Prompt | Moment | Answers |
 |---|---|---|
@@ -34,7 +34,7 @@ Every question to the user is one AskUserQuestion whose title is one of three wo
 | `Approve?` | a gate, once the full draft of the issue, commit, or PR is in chat | Approve / Change |
 | `Review?` | after the last commit, once the reviewer's model and effort are in chat | Yes / No |
 
-Whatever the prompt gates goes in chat first, as chat text above the prompt in the same turn: the read-back, the plan, the draft, the file table, the test line. A draft is shown verbatim in a code block, never described. The prompt holds its word and its two answers and nothing else; where the tool wants a description on an answer, it is 2 or 3 words, never a reason. On Change, redraft from the note and ask again. Nothing is created, committed, or opened before its `Approve?` returns Approve. A correction at any prompt is a convention from then on: every later draft of that kind follows it unasked, it is worth a memory note when the harness keeps one, and when the corrected form came from a skill the user owns, that skill is edited in the same pass. Bodies reach `gh` through `--body-file -` on stdin, never a file in the repo. A `create` runs once, after its gate, never as a probe.
+Whatever the word gates goes in chat above it, in the same turn: the read-back, the plan, the draft, the file table, the test line. A draft is shown verbatim in a code block, never described. The last line holds the word and nothing else. On Change, redraft from the note and ask again. Nothing is created, committed, or opened before its `Approve?` returns Approve. A correction at any prompt is a convention from then on: every later draft of that kind follows it unasked, it is worth a memory note when the harness keeps one, and when the corrected form came from a skill the user owns, that skill is edited in the same pass. Bodies reach `gh` through `--body-file -` on stdin, never a file in the repo. A `create` runs once, after its gate, never as a probe.
 
 A question from the user is answered, not acted on. It gets one of three replies: the reason, when it holds; the reason and a softer alternative, when prior art or the user's likely preference points another way; or a plain concession that the step overreached, broke something, or put something in the wrong place. Nothing changes until the user says Change or Approve. The tone of the question changes none of this, and "you're right to be frustrated" or "you're right to push back" is never the reply.
 
@@ -127,7 +127,7 @@ The diff holds only what the issue needs. No `.gitignore`, formatter config, REA
 - A commit subject with a capital or an article, a commit subject whose verb names what the code does at run time instead of what the diff does, a PR subject without its issue number, an issue title that names a fix
 - A change made in reply to a question instead of an answer
 - A body that leans on something said in the conversation
-- A prompt with a title other than the three words, a draft, a plan, or a reason inside it, or a form the user corrected at an earlier prompt
+- A question asked through the question tool, a last line holding more than its one word, or a form the user corrected at an earlier question
 - A presentation that describes the draft, the diff, or the test result instead of showing them
 - A presentation in the first person, or one that calls the change committed before `Approve?` returns
 - A plan given as a paragraph instead of a numbered list
