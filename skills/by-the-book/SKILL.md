@@ -64,7 +64,7 @@ Done criteria go in as a short list only when the outcome is not obvious from th
 
 **3. Branch.** From the default branch: `git switch -c issue-<N>-<slug>` or the `--branch=kind` form. With `--worktree`: `git worktree add ../<repo>-issue-<N> -b issue-<N>-<slug>` and work there.
 
-**4. Prior art.** How this has been solved before: a sibling in the repo, the library's docs, one or two known implementations. Three sources at most. This shapes the plan, posted in chat: the commits in order, one line each, with the behavior it covers and its first failing test. `Go?`
+**4. Prior art.** How this has been solved before: a sibling in the repo, the library's docs, one or two known implementations. Three sources at most. This shapes the plan, posted in chat as a numbered list with one commit per item: one line each, with the behavior it covers and its first failing test. `Go?`
 
 **5. Commit loop.** One commit per coherent change:
 
@@ -72,8 +72,23 @@ Done criteria go in as a short list only when the outcome is not obvious from th
 2. Write the least code that passes it. Run the suite.
 3. Run the repo's formatter if one is configured. Add none.
 4. Repeat until the commit's behavior is covered.
-5. Present in chat: an opening line saying what the commit does, a table of files and what changed, the test command and its last line, and the draft message verbatim in a code block. `Approve?`
-6. On Approve, commit with that message exactly.
+5. Stage the files. Nothing is committed yet, and nothing said in chat calls it committed.
+6. Present in chat, in the shape below, with the draft message verbatim. `Approve?`
+7. On Approve, commit with that message exactly.
+
+~~~
+**<what the commit does, one line>**
+
+| File | Change |
+|---|---|
+| <path> | <what changed in it> |
+
+`<test command>` → `<its last line>`
+
+```
+<draft message>
+```
+~~~
 
 The test and the code are never written in the same tool call. A test that passes on its first run is deleted and rewritten to fail. A code comment may say why one approach over another when that is not obvious. A docstring says what the thing does now and never what was rejected, removed, or not done, unless the item is deliberately obsolete and marked so.
 
@@ -114,3 +129,5 @@ The diff holds only what the issue needs. No `.gitignore`, formatter config, REA
 - A body that leans on something said in the conversation
 - A prompt with a title other than the three words, a draft, a plan, or a reason inside it, or a form the user corrected at an earlier prompt
 - A presentation that describes the draft, the diff, or the test result instead of showing them
+- A presentation in the first person, or one that calls the change committed before `Approve?` returns
+- A plan given as a paragraph instead of a numbered list
