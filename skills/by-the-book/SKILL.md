@@ -40,9 +40,9 @@ A question from the user is answered, not acted on. It gets one of three replies
 
 ## Voice
 
-Everything a human will read is written as the user would write it: factual, in words a 4th grader reads, as a comment is. A body's first sentence says what the whole change does, in the present tense, without much detail. The sentences after it are short and plain, in whatever tense the fact needs, and they may say what was there before and what was removed or fixed. First person is allowed in two places and nowhere else, and neither is required: an opinionated decision, and a question to the maintainers, which reads like one person talking to another rather than a checklist item. A body with no decision to defend and no open question has no "I".
+Everything a human will read is written as the user would write it: factual, in words a 4th grader reads, as a comment is. A body's first sentence says what the whole change does, in the present tense, without much detail. The sentences after it are short and plain, in whatever tense the fact needs, and they may say what was there before and what was removed or fixed. Every noun is written where it is used: a pronoun or a possessive standing in for a noun from the sentence before is compression. The plain word wins over the one picked for effect. First person is allowed in two places and nowhere else, and neither is required: an opinionated decision, and a question to the maintainers, which reads like one person talking to another rather than a checklist item. A body with no decision to defend and no open question has no "I".
 
-An issue or PR body is written for a reader who was not in the conversation. It carries nothing the conversation alone supplies: not the reason the user gave for wanting the change, not the thing they pointed at to motivate it, not the words they used to ask. What the change does and why it is right are stated from the code and the repo. A sentence that would puzzle a maintainer who never saw the chat or this skill is a tell, and so is a word this skill coined: gate, redo, tell, prompt, read-back.
+An issue or PR body is written for a reader who was not in the conversation. It carries nothing the conversation alone supplies: not the reason the user gave for wanting the change, not the thing they pointed at to motivate it, not the words they used to ask. What the change does and why it is right are stated from the code and the repo. A sentence that would puzzle a maintainer who never saw the chat or this skill is a tell, and so is a word that only means something inside this skill: "gate", "redo", "tell", "prompt", "read-back".
 
 A markdown paragraph is one line however long; wrapping prose at a column is a tell. Commit bodies are the exception and wrap at 72. `##` is the largest heading, `###` is rare and only inside an `##`, a body under 150 words has no headings, and bold is never a heading. Paragraphs stay short. A list may follow a sentence and a colon when the items are parallel, numbered when order matters, and a comma run long enough that a reader loses their place becomes one. A wall of headings and bullets reads as generated, and so does a wall of prose where a list was the natural shape.
 
@@ -105,7 +105,7 @@ The diff holds only what the issue needs. No `.gitignore`, formatter config, REA
 - A fix in the same paragraph as the problem
 - An "I" or a question added because the shape had a slot for one
 - A docstring that says what the code used to do or what was decided against
-- A PR body that does not start with `Closes #N.`, whose first sentence does not say what the whole PR does, whose summary carries a heading, or that uses a word this skill coined
+- A PR body that does not start with `Closes #N.`, whose first sentence does not say what the whole PR does, whose summary carries a heading, or that uses a word that only means something inside this skill
 - A draft that ignores a template the repo ships
 - A file in the diff the issue never mentioned
 - A trailer, footer, or emoji in a commit message
