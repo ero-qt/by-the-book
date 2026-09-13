@@ -34,7 +34,7 @@ An issue title states the problem, never the fix. The body keeps the problem, an
 
 A commit subject is imperative, lowercase, and free of articles, unless the repository's history shows another convention. It says what the commit does to the repository, never what the code now does, so its verb is one a diff can show: add, remove, move, rename, split, replace, fix, bump. The body says why and what it rejects.
 
-A pull request subject is imperative in sentence case with the issue number at the end. The body opens with `Closes #N.`, then one or two sentences saying what was done, then how and why in plain paragraphs, then how it was tested. A footer with `Depends on` and `Stacked:` appears only when it applies.
+A pull request subject is imperative in sentence case with the issue number at the end. The body opens with `Closes #N.`, then a paragraph whose first sentence says what the whole pull request does, then the smaller changes each on their own line, then how and why in plain paragraphs, then how it was tested. A footer with `Depends on` and `Stacked:` appears only when it applies.
 
 When the repository ships issue or pull request templates, those win.
 
